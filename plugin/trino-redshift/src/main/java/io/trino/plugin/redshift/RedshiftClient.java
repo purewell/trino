@@ -384,7 +384,13 @@ public class RedshiftClient
             throw new TrinoException(JDBC_ERROR, "Failed fetching statistics for table: " + handle, e);
         }
     }
-
+    
+    @Override
+    protected Optional<List<String>> getTableTypes()
+    {
+        return Optional.of(ImmutableList.of("TABLE", "VIEW", "EXTERNAL TABLE"));
+    }
+    
     @Override
     public boolean supportsTopN(ConnectorSession session, JdbcTableHandle handle, List<JdbcSortItem> sortOrder)
     {
